@@ -18,14 +18,17 @@ const Home: NextPage = () => {
       }}>
       <Card css={{ mw: "330px" }}>
         <Card.Header>
-          <Text b>Card Title</Text>
+          <Text b>Welcome to Warm Token Gate</Text>
         </Card.Header>
         <Card.Divider />
         <Card.Body css={{ py: "$10" }}>
-          <Text>
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </Text>
+          <ul>
+            <li>By signing you get let through the token gate if you own a required NFT.</li>
+            <li>Warm wallets supported. </li> 
+            <li>
+              Learn more here: <a href="https://warm.xyz/">warm.xyz</a> </li>
+            <li>This is a hackathon project. Only deployed for testing purposes. </li>
+          </ul>
         </Card.Body>
         <Card.Divider />
         <Card.Footer>
@@ -33,7 +36,7 @@ const Home: NextPage = () => {
             <Button size="sm" light>
               Cancel
             </Button>
-            <Button size="sm">Agree</Button>
+            <Button size="sm">Sign</Button>
           </Row>
         </Card.Footer>
       </Card>
