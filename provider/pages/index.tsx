@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { Container, Card, Row, Text, Button, Grid, Spacer, Link } from "@nextui-org/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { ethers } from 'ethers';
 import { v4 as uuidv4 } from 'uuid';
 import { fetchJson } from "ethers/lib/utils";
@@ -105,8 +105,11 @@ const AppConnect: NextPage = () => {
   })()
 
   const body = (() => {
+    console.log("NFTs logic:");
+    console.log(nfts?.length); 
 
     if (nfts) {
+      if (nfts?.length) {
       console.log(nfts);
       return (
         <div>
@@ -145,33 +148,56 @@ const AppConnect: NextPage = () => {
 
           </Grid.Container>
 
-          <Button size="sm">
+          <ul>
+            <li><Button size="sm">
           <Link href={process.env.NEXT_PUBLIC_CALLBACK_SUCCESS_URL} color="primary" style={{color: 'white'}} >
-                Continue
+                Continue to Demo App
           </Link>
-          </Button>
+          </Button></li>
+          </ul>
+
+          
 
         </div>
       );
-    }
-
-    if (walletAddress) {
+    } else {
+      console.log("No NFTs!");
       return (
-        <ul>
-          <li>Sign a message with the hot wallet to prove token ownership</li>
-        </ul>
+      <div>
+          <ul>
+            <li>Sorry you don't have any NFT</li>
+            <li>
+            <Button size="sm">
+          <Link href={process.env.NEXT_PUBLIC_CALLBACK_ERROR_URL} color="primary" style={{color: 'white'}} >
+                Continue to Demo App
+          </Link>
+          </Button>
+            </li>
+          </ul>
+          </div>
       );
     }
+  }
 
+  if (walletAddress) {
     return (
       <ul>
-        <li>This is a hackathon project. Only deployed for testing purposes. </li>
-        <li>This service will prove you own a specific NFT to get you through a token gate.</li>
-        <li>Warm wallets supported. </li>
-        <li>Learn more here: <a href="https://warm.xyz/">warm.xyz</a> </li>
-        <li>Connect to get started</li>
+        <li>Sign a message with the hot wallet to prove token ownership</li>
       </ul>
     );
+  }
+
+  return (
+    <ul>
+      <li>This is a hackathon project. Only deployed for testing purposes. </li>
+      <li>This service will prove you own a specific NFT to get you through a token gate.</li>
+      <li>Warm wallets supported. </li>
+      <li>Learn more here: <a href="https://warm.xyz/">warm.xyz</a> </li>
+      <li>Connect to get started</li>
+    </ul>
+  );
+
+    
   })();
 
   return (

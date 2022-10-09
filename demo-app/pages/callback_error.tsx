@@ -17,9 +17,11 @@ const Home: NextPage = () => {
         <h1 className={styles.title}>
           Sorry! You cannot access exclusive content!
         </h1>
+        <Button color="primary">
         <Link href="/" style={{color: 'black'}} >
                 Go Back
               </Link>
+              </Button>
         </main>
 
       <footer className={styles.footer}>
