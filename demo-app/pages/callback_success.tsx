@@ -17,6 +17,9 @@ const Home: NextPage = () => {
         <h1 className={styles.title}>
           Success! Welcome to the exclusive content!
         </h1>
+        <Link href="/" style={{color: 'black'}} >
+                Go Back
+              </Link>
         </main>
 
       <footer className={styles.footer}>

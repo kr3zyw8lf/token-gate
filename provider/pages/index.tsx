@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import { useRouter } from "next/router";
-import { Container, Card, Row, Text, Button, Grid, Spacer } from "@nextui-org/react";
+import { Container, Card, Row, Text, Button, Grid, Spacer, Link } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import { ethers } from 'ethers';
 import { v4 as uuidv4 } from 'uuid';
@@ -122,6 +122,12 @@ const AppConnect: NextPage = () => {
 
           </Grid.Container>
 
+          <Button size="sm">
+          <Link href={process.env.NEXT_PUBLIC_CALLBACK_SUCCESS_URL} color="primary" style={{color: 'white'}} >
+                Continue
+          </Link>
+          </Button>
+
         </div>
       );
     }
@@ -169,7 +175,10 @@ const AppConnect: NextPage = () => {
           <Card.Footer>
             <Row justify="flex-end">
               <Button size="sm" light>
+              <Link href={process.env.NEXT_PUBLIC_CALLBACK_ERROR_URL} style={{color: 'white'}} >
                 Cancel
+              </Link>
+                
               </Button>
               {actionButton}
             </Row>
