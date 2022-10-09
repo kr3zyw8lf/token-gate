@@ -40,6 +40,7 @@ const AppConnect: NextPage = () => {
 
   const connect = async () => {
     console.log("Connect");
+    // @ts-ignore
     const accounts = await window.ethereum?.request<string[]>({ method: 'eth_accounts' });
     if (accounts?.length === 1) {
       if (typeof accounts[0] === 'string') {
