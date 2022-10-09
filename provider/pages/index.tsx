@@ -1,11 +1,12 @@
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { Container, Card, Row, Text, Button, Grid, Spacer } from "@nextui-org/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ethers } from 'ethers';
 import { v4 as uuidv4 } from 'uuid';
 import { fetchJson } from "ethers/lib/utils";
 import * as models from '../models';
+import MetaMaskOnboarding from '@metamask/onboarding';
 
 
 declare global {
@@ -20,8 +21,23 @@ const AppConnect: NextPage = () => {
 
   // const [state, setState] = useState<State>("NotConnected");
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
   const [nfts, setNfts] = useState<models.Nft[] | null>(null);
+  const metaMaskOnboarding = useRef<MetaMaskOnboarding>();
+
+  useEffect(() => {
+
+    if (!metaMaskOnboarding.current) {
+      metaMaskOnboarding.current = new MetaMaskOnboarding();
+    }
+
+    (async () => {
+      const provider = new ethers.providers.Web3Provider(
+        window.ethereum,
+      );      
+      const network = await provider.getNetwork();
+      console.log(network.chainId);
+    })();    
+  }, []);
 
   useEffect(() => {
     if (walletAddress) {
@@ -40,14 +56,21 @@ const AppConnect: NextPage = () => {
 
   const connect = async () => {
     console.log("Connect");
-    // @ts-ignore
-    const accounts = await window.ethereum?.request<string[]>({ method: 'eth_accounts' });
-    if (accounts?.length === 1) {
-      if (typeof accounts[0] === 'string') {
-        console.log(accounts[0]);
-        setWalletAddress(accounts[0]);
+
+    if (MetaMaskOnboarding.isMetaMaskInstalled()) {
+      // @ts-ignore
+      const accounts = await (window.ethereum?.request<string[]>({ method: 'eth_requestAccounts' }));
+      console.log(accounts)
+      if (accounts?.length === 1) {
+        if (typeof accounts[0] === 'string') {
+          console.log(accounts[0]);
+          setWalletAddress(accounts[0]);
+        }
       }
-    }
+    }      
+    else {
+      metaMaskOnboarding.current?.startOnboarding();
+    }    
   };
 
   const sign = async () => {
@@ -185,4 +208,4 @@ const AppConnect: NextPage = () => {
 
 };
 
-export default AppConnect
+export default AppConnect;
