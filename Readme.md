@@ -16,5 +16,5 @@ https://token-gate-provider.vercel.app/
 
 
 This project uses metamask to verify the user owns the wallet.
-warm.xyz is used to see what cold wallets are linked with the current wallet they're using so that if they have a high valued NFT like a bored ape on a separate hardware wallet, then their hot wallet can act on its behalf. Infura and alchemy is used to query the warm smart contract.
+[warm.xyz](https://warm.xyz) is used to see what cold wallets are linked with the current wallet they're using so that if they have a high valued NFT like a bored ape on a separate hardware wallet, then their hot wallet can act on its behalf. Infura and alchemy is used to query the warm smart contract.
 To query for nft ownership alchemy is used.
